@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Document</title>
+    <script src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+    <style>
+        *{margin: 0;padding: 0}
+        #slider{width: 800px;height: 450px;display:block;margin: 0 auto;margin-top: 100px;border:1px solid #ddd;overflow: hidden;position: relative;}
+        #slider li{display: block;float: left;}
+        #slider li img{width: 800px;height: 450px;}
+		#btn{width: 800px;height:50px;display:block;margin: 0 auto;margin-top: 5px;border:1px solid #ddd;overflow: hidden;position: relative;background-color: gray;}
+        #btn button.up{position:absolute;bottom: 0px;z-index: 9;left: 20px;width: 50px;height: 50px;text-align: center;}
+        #btn button.down{position: absolute;bottom: 0px;z-index: 9;right: 20px;width: 50px;height: 50px;text-align: center;}
+    </style>
+</head>
+<body>
+    <div id="slider">
+        <ul>
+            <li><a href=""><img src="1.jpg" alt="" /></a></li>
+            <li><a href=""><img src="2.jpg" alt="" /></a></li>
+            <li><a href=""><img src="3.jpg" alt="" /></a></li>
+        </ul>
+    </div>
+	<div id="btn">
+	    <button class="up">上一个</button>
+        <button class="down">下一个</button>
+	</div>
+<script>
+
+var sliderWidth = $("#slider li").width();
+var sliderSize = $("#slider li").size();
+var sliderUl = $("#slider ul")
+sliderUl.width(sliderWidth*sliderSize);
+var timer
+function time(){
+    timer=setInterval(function(){
+        slider();
+    },3000);
+}
+var i = 0
+function slider(){
+    if (i>=sliderSize-1) {
+        i = 0
+    } else {
+        i ++
+    }
+    sliderUl.stop().animate({marginLeft: -sliderWidth*i}, 500);
+};
+
+//time()
+$("button.up").click(function(event) {
+    if( i !== 0 && i > 0 ){
+        sliderUl.stop().animate({marginLeft: -(i-1)*sliderWidth}, 500);
+        i --
+    }else{
+        i = sliderSize-1
+        sliderUl.stop().animate({marginLeft: -i*sliderWidth}, 500);
+    };
+
+    clearInterval(timer)
+    //time();
+});
+$("button.down").click(function(event) {
+    slider();
+    clearInterval(timer)
+    //time();    
+});
+
+</script>
+</body>
+</html>
